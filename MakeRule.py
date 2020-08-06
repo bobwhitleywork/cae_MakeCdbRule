@@ -1,6 +1,6 @@
 import os
 import sys
-import Utils.CDB
+#import Utils.CDB
 import xml.etree.ElementTree as ET
 import shutil
 
@@ -121,7 +121,7 @@ def AddManifestItem():
 		insertIndex += 1
 		firstRuleNumber = GetFirstRuleNumber(rule.text)
 
-		if Utils.CDB.RepresentsInt(firstRuleNumber):
+		if RepresentsInt(firstRuleNumber):
 			thisRuleNumber = int(firstRuleNumber)
 		else:
 			print(f'Bad rule number: {rule.text}')
@@ -311,6 +311,13 @@ def ModifyRuleFile():
 	if os.path.isfile(rulePathname):
 		print(f'Modified {rulePathname}')
 
+def RepresentsInt(s):
+	try: 
+		int(s)
+		return True
+	except ValueError:
+		return False
+
 
 
 
@@ -341,7 +348,7 @@ if __name__ == '__main__':
 	if len(sys.argv) < 2:
 		BadParameters('001')
 
-	if not Utils.CDB.RepresentsInt(sys.argv[1]):
+	if not RepresentsInt(sys.argv[1]):
 		BadParameters('002')
 
 	RuleNumber = sys.argv[1]
